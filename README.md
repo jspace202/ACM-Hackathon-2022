@@ -1,9 +1,9 @@
 # OrangePark ACM-Hackathon-2022
 
 Third Party API's:
-Venmo
-PayPal
-MapBox
+Venmo - We cannot use Venmo
+PayPal - We can use PayPal freely in any web or mobile app
+MapBox - We can use freely in any web or mobile app if we create an account
 
 App functionalities:
 //People searching for parking create an account that holds the following:
@@ -20,4 +20,4 @@ App functionalities:
 
 //The App itself will have the following functionalities:
 -An interactive map, using MapBox, that allows users to search Stillwater for all available parking
--A search bar that allows users to find available parking closest to a specific location.
+-A search bar that allows users to input a location and find available parking closest to that location.
