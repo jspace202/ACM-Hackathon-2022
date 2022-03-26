@@ -10,9 +10,7 @@ import { Marker, Popup } from "react-mapbox-gl";
 import AppBar from "./components/AppBar";
 import LandingPage from "./pages/LandingPage";
 import { Route, Routes } from "react-router-dom";
-
-
-
+import ParkingProvidingPage from "./pages/ParkingProviderPage";
 
 
 const Map = ReactMapboxGl({
@@ -99,10 +97,7 @@ class App extends React.Component {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="park" element={<ParkMap />} />
-          <Route path="rent" element={"rent"} />
-
-
-
+          <Route path="rent" element={<ParkingProvidingPage />} />
         </Routes>
       </>
     );
