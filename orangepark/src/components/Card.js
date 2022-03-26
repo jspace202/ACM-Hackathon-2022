@@ -17,12 +17,35 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 32,
-    textAlign: 'center'
+    fontSize: 50,
+    textAlign: 'center',
+    fontWeight: 'bold'
   },
   pos: {
     marginBottom: 12,
   },
+  btn: {
+    fontFamily: 'Poppins, sans-serif',
+    fontSize: '2.0rem',
+    padding: '0.5rem 1.5rem',
+    cursor: 'pointer',
+    borderRadius: '3px',
+    backgroundColor: '#ff6f00',
+    background: 'linear-gradient(45deg, #ffa600 30%, #ff6a00 90%)',
+    color: 'white',
+    border: '3px solid #c9c9c9',
+    margin: '0 1rem',
+    width: '15%',
+    marginLeft: '40%',
+    textTransform: 'uppercase',
+    '&:hover':{
+      backgroundColor: '#da5f00',
+      border: '3px solid #c9c9c9',
+    }
+  },
+  link:{
+    textDecoration: 'none'
+  }
 });
 
 export default function CustomCard({title, description, link}) {
@@ -35,8 +58,8 @@ export default function CustomCard({title, description, link}) {
         <Typography className={classes.title} color="textSecondary" variant='h1' gutterBottom>
           {title}
         </Typography>
-        <Link to={link}>
-        <Button fullWidth color="primary" size='large' variant='outlined'>{description}</Button>
+        <Link to={link} className={classes.link}>
+          <Button fullWidth className={classes.btn} color="primary" size='large' variant='outlined'>{description}</Button>
         </Link>
       </CardContent>
       </Card>
