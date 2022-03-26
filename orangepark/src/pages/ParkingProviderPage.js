@@ -46,24 +46,38 @@ export default function ParkingProvidingPage() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await addDoc(collection(db, 'spots'), {
-                name: details.name,
-                email: details.email,
-                phoneNumber: details.phoneNumber,
-                address: details.address,
-                createdAt: Timestamp.now()
-            }).then(()=>{
-                setSnackMessage({type: '', value: 'Form Submitted successfully'});
-                setTimeout(() => {  navigate('/'); }, 1000);
-            })
+            fetch("http://api.positionstack.com/v1/forward?access_key=4f165417fa1a9d999de3f32978c4b93f&query=" + details.address + "&limit=1")
+                .then(res => res.json())
+                .then(async (result) => {
+                    console.log(result)
+                    if (result && result.data && result.data.length) {
+                        const { latitude, longitude } = result.data[0];
+                        await addDoc(collection(db, 'spots'), {
+                            name: details.name,
+                            email: details.email,
+                            phoneNumber: details.phoneNumber,
+                            address: details.address,
+                            latitude,
+                            longitude,
+                            createdAt: Timestamp.now()
+                        }).then(() => {
+                            setSnackMessage({ type: '', value: 'Form Submitted successfully' });
+                            setTimeout(() => { navigate('/'); }, 1000);
+                        })
+                    }
+                    else {
+                        setSnackMessage({ type: '', value: 'Failed to submit form, please try reloading and submitting again or try contact Administrator' })
+                    }
+                })
+
         } catch (err) {
             console.error(err);
-            setSnackMessage({type:'', value: 'Failed to submit form, please try reloading and submitting again or try contact Administrator'})
+            setSnackMessage({ type: '', value: 'Failed to submit form, please try reloading and submitting again or try contact Administrator' })
         }
     }
 
-    const handleSnackClose = () =>{
-        setSnackMessage({type: '', value:''})
+    const handleSnackClose = () => {
+        setSnackMessage({ type: '', value: '' })
     }
 
     return (

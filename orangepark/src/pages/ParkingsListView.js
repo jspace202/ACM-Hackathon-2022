@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore"
+import { db } from '../firebase'
+
 
 import { GeolocateControl } from "mapbox-gl";
 import { Marker, Popup } from "react-mapbox-gl";
@@ -20,8 +23,21 @@ const BaseMap = () => {
         map.addControl(new GeolocateControl());
     };
 
-    console.log(map)
+    const [parkingsAvailable, setParkings] = useState([])
 
+    useEffect(() => {
+        const q = query(collection(db, 'spots'), orderBy('createdAt', 'desc'))
+        onSnapshot(q, (querySnapshot) => {
+            console.log(querySnapshot);
+            setParkings(querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                data: doc.data()
+            })))
+        })
+    }, []);
+
+
+    console.log(parkingsAvailable);
 
     return (
         <>
@@ -40,20 +56,29 @@ const BaseMap = () => {
                     <Feature coordinates={defaultCoordinates} />
                 </Layer>
                 <ZoomControl position='bottom-right' />
-                <Marker
-                    coordinates={defaultCoordinates}
-                    anchor="bottom">
-                    <img src={"markerUrl"} />
-                </Marker>
+                {
+                    parkingsAvailable.map(parking => (
+                        <><Popup
+                            coordinates={[parking.data.longitude, parking.data.latitude]}
+                            offset={{
+                                'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
+                            }}>
+                            <h1>{parking.data.name}</h1>
+                            <h2>{parking.data.address}</h2>
+                            <h2>{parking.data.phoneNumber}</h2>
+                            <h2>{parking.data.email}</h2>
+
+                        </Popup><Marker
+                            coordinates={[parking.data.longitude, parking.data.latitude]}
+                            anchor="bottom">
+                                
+                            </Marker></>
+                    ))
+                }
 
 
-                <Popup
-                    coordinates={defaultCoordinates}
-                    offset={{
-                        'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
-                    }}>
-                    <h1>Popup</h1>
-                </Popup>
+
+
             </Map></>
     );
 
