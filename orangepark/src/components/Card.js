@@ -50,8 +50,6 @@ const useStyles = makeStyles({
 
 export default function CustomCard({title, description, link}) {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-
   return (
     <Card className={classes.root} raised>
       <CardContent>

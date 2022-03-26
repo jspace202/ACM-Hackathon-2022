@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
@@ -6,6 +6,7 @@ import { collection, addDoc, Timestamp } from 'firebase/firestore'
 import { db } from '../firebase';
 import Snackbar from '@material-ui/core/Snackbar';
 import { useNavigate } from "react-router-dom";
+import { isValidEmail, isValidPhone } from '../utils';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -80,6 +81,14 @@ export default function ParkingProvidingPage() {
         setSnackMessage({ type: '', value: '' })
     }
 
+    const isFormValid = useMemo(() => {
+        if (details.name && details.email && isValidEmail(details.email) &&
+            details.phoneNumber && isValidPhone(details.phoneNumber) && details.address && details.address.length > 3) {
+            return true;
+        }
+        return false;
+    }, [details]);
+
     return (
         <>
             <Snackbar
@@ -105,13 +114,14 @@ export default function ParkingProvidingPage() {
                         value={details.name}
                         style={{ margin: 8 }}
                         placeholder="Enter Your Name"
-                        helperText="Full width!"
+                        helperText="Please enter your full name!"
                         fullWidth
                         margin="normal"
                         InputLabelProps={{
                             shrink: true,
                         }}
                         variant="outlined"
+                        required="true"
                     />
                     <TextField
                         label="Email"
@@ -121,8 +131,9 @@ export default function ParkingProvidingPage() {
                         id="outlined-margin-none"
                         defaultValue=""
                         className={classes.textField}
-                        helperText="Enter your Email"
+                        helperText="Please enter a valid email"
                         variant="outlined"
+                        required="true"
                     />
                     <TextField
                         label="Phone Number"
@@ -132,8 +143,9 @@ export default function ParkingProvidingPage() {
                         id="outlined-margin-none"
                         defaultValue=""
                         className={classes.textField}
-                        helperText="Enter your Phone Number"
+                        helperText="Please enter valid Phone number"
                         variant="outlined"
+                        required="true"
                     />
                     <TextField
                         id="outlined-full-width"
@@ -142,7 +154,7 @@ export default function ParkingProvidingPage() {
                         value={details.address}
                         onChange={handleChange}
                         style={{ margin: 8 }}
-                        placeholder="Enter Your Address"
+                        placeholder="Please enter a valid address"
                         helperText=""
                         fullWidth
                         defaultValue=""
@@ -151,10 +163,11 @@ export default function ParkingProvidingPage() {
                             shrink: true,
                         }}
                         variant="outlined"
+                        required="true"
                     />
                 </div>
             </div>
-            <Button className={classes.button} color="secondary" size='large' variant='outlined' onClick={handleSubmit}>Submit</Button>
+            <Button className={classes.button} disabled={!isFormValid} color="secondary" size='large' variant='outlined' onClick={handleSubmit}>Submit</Button>
         </>
 
     );

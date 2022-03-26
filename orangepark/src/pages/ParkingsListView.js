@@ -6,7 +6,7 @@ import parkingIcon from "../icons/parkingIcon";
 
 
 import { GeolocateControl } from "mapbox-gl";
-import { Marker, Popup } from "react-mapbox-gl";
+import { Popup } from "react-mapbox-gl";
 
 const Map = ReactMapboxGl({
     preserveDrawingBuffer: true,
@@ -23,6 +23,8 @@ image.src = 'data:image/svg+xml;charset=utf-8;base64,' + btoa(parkingIcon);
 const images = ['parking', image];
 
 const BaseMap = () => {
+    
+    // eslint-disable-next-line
     const [map, setMap] = useState(null);
 
     const onMapLoad = map => {
