@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
   btn: {
     fontFamily: 'Poppins, sans-serif',
-    fontSize: '1.75rem',
+    fontSize: '2.0rem',
     padding: '0.5rem 1.5rem',
     cursor: 'pointer',
     borderRadius: '3px',
