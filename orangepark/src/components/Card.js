@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
   btn: {
     fontFamily: 'Poppins, sans-serif',
-    fontSize: '2.0rem',
+    fontSize: '1.75rem',
     padding: '0.5rem 1.5rem',
     cursor: 'pointer',
     borderRadius: '3px',
@@ -35,8 +35,8 @@ const useStyles = makeStyles({
     color: 'white',
     border: '3px solid #c9c9c9',
     margin: '0 1rem',
-    width: '15%',
-    marginLeft: '40%',
+    width: '30%',
+    marginLeft: '35%',
     textTransform: 'uppercase',
     '&:hover':{
       backgroundColor: '#da5f00',
