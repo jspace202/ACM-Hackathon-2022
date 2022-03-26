@@ -7,6 +7,9 @@ import ListView from "./ListView";
 
 import { GeolocateControl } from "mapbox-gl";
 import { Marker, Popup } from "react-mapbox-gl";
+import AppBar from "./components/AppBar";
+import LandingPage from "./pages/LandingPage";
+import { Route, Routes } from "react-router-dom";
 
 
 
@@ -23,7 +26,7 @@ class BaseMap extends React.Component {
 
 
     return (
-      <><h1>Orange Park</h1>
+      <>
         <Map
           // eslint-disable-next-line
           style={"mapbox://styles/mapbox/streets-v8"}
@@ -77,14 +80,31 @@ const TempButton = () => {
 }
 
 
+class ParkMap extends React.Component {
+  render() {
+    return (
+      <>
+        <BaseMap ref={el => (this.componentRef = el)} /><TempButton /><ListView />
+      </>
+    )
+  }
+}
+
+
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <BaseMap ref={el => (this.componentRef = el)} />
-        <TempButton />
-        <ListView />
-      </div>
+      <>
+        <AppBar />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="park" element={<ParkMap />} />
+          <Route path="rent" element={"rent"} />
+
+
+
+        </Routes>
+      </>
     );
   }
 }
