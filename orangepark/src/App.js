@@ -4,6 +4,7 @@ import LandingPage from "./pages/LandingPage";
 import { Route, Routes } from "react-router-dom";
 import ParkingProvidingPage from "./pages/ParkingProviderPage";
 import ParkingsListView from "./pages/ParkingsListView";
+import ParkingAboutPage from "./pages/ParkingAboutPage";
 
 class App extends React.Component {
   render() {
@@ -14,6 +15,7 @@ class App extends React.Component {
           <Route path="/" element={<LandingPage />} />
           <Route path="park" element={<ParkingsListView />} />
           <Route path="rent" element={<ParkingProvidingPage />} />
+          <Route path="about" element={<ParkingAboutPage />} />
         </Routes>
       </>
     );
