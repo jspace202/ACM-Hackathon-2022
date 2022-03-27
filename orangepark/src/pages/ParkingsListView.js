@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore"
 import { db } from '../firebase'
@@ -7,6 +7,10 @@ import parkingIcon from "../icons/parkingIcon";
 
 import { GeolocateControl } from "mapbox-gl";
 import { Popup } from "react-mapbox-gl";
+import { Grid, IconButton } from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
+
+import { makeStyles } from '@material-ui/core/styles';
 
 const Map = ReactMapboxGl({
     preserveDrawingBuffer: true,
@@ -22,8 +26,17 @@ const image = new Image();
 image.src = 'data:image/svg+xml;charset=utf-8;base64,' + btoa(parkingIcon);
 const images = ['parking', image];
 
+const useStyles = makeStyles((theme) => ({
+    closeContainer:{
+        display: 'flex',
+        flexDirection: 'row-reverse',
+    }
+}));
+
+
 const BaseMap = () => {
-    
+    const classes = useStyles();
+
     // eslint-disable-next-line
     const [map, setMap] = useState(null);
 
@@ -46,9 +59,14 @@ const BaseMap = () => {
 
     const filteredParkings = useMemo(() => {
         return parkingsAvailable.filter(item => item.data.isValid)
-    },[parkingsAvailable]);
+    }, [parkingsAvailable]);
 
     const [toolTip, setToolTip] = useState(null);
+
+
+    const handleToolTipClose = useCallback(() =>{
+        setToolTip(undefined)
+    },[]);
 
     return (
         <>
@@ -70,9 +88,9 @@ const BaseMap = () => {
                 <ZoomControl position='bottom-right' />
                 <Layer
                     type="symbol"
-                    paint={{"icon-color":'orange'}}
+                    paint={{ "icon-color": 'orange' }}
                     images={images}
-                    layout={{ 'icon-image': 'parking', "icon-size":1, 'icon-allow-overlap': true}}>
+                    layout={{ 'icon-image': 'parking', "icon-size": 1, 'icon-allow-overlap': true }}>
                     {
                         filteredParkings.map((parking, index) => (
                             <Feature
@@ -90,12 +108,15 @@ const BaseMap = () => {
                             offset={{
                                 'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
                             }}>
+                            <Grid className={classes.closeContainer}>
+                                <IconButton onClick={handleToolTipClose}><CloseIcon /></IconButton>
+                            </Grid>
                             <h1>{toolTip.data.name}</h1>
                             <h2>{toolTip.data.address}</h2>
                             <h2>{toolTip.data.phoneNumber}</h2>
                             <h2>{toolTip.data.email}</h2>
                             <h2>{toolTip.data.price} $</h2>
-                            <h2>{toolTip.data.numberOfSpotsAvailable} slots available</h2>
+                            <h2>{toolTip.data.numberOfSpotsAvailable} spots available</h2>
                         </Popup>
                     )
                 }
