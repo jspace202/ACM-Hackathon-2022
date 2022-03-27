@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,8 +19,12 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  toolbar:{
-      backgroundColor: "#FE5C00",
+  toolbar: {
+    backgroundColor: "#FE5C00",
+  },
+  link:{
+    textDecoration: 'none',
+    color: 'white'
   }
 }));
 
@@ -30,14 +35,17 @@ export default function CustomAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-        <Link to='/' className={classes.link}>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <HomeIcon />
-          </IconButton>
+          <Link to='/' className={classes.link}>
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+              <HomeIcon />
+            </IconButton>
           </Link>
           <Typography variant="h6" className={classes.title}>
             Orange Park
           </Typography>
+          <Link to='/about' className={classes.link}>
+            <Button color="inherit">About us</Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>
