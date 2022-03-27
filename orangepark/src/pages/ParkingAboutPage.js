@@ -14,16 +14,14 @@ const useStyles = makeStyles({
         fontSize: '30px',
         textAlign: 'left',
         color: 'grey',
-        marginLeft: '5%',
-        marginRight: '5%'
+        marginLeft: '2%',
+        marginRight: '2%'
     },
     footer: {
         fontSize: '20px',
-        textAlign: 'center',
+        textAlign: 'left',
         color: '#c4c4c4',
-        marginTop: '50px',
-        marginLeft: '5%',
-        marginRight: '5%',
+        margin: '2%'
     }
 });
   
@@ -45,7 +43,9 @@ const ParkingAboutPage = () => {
                         asking price. OrangePark is a streamlined way to save time and money on gameday.
                     </Typography>
                     <Typography className={classes.footer} variant="body2" component="p">
-                        If you have filled out the renter's forum, please e-mail us at NotAFakeEmail@gmail.com to be validated.<br/>
+                        Our e-mail: NotAFakeEmail@gmail.com<br/>
+                        If you have filled out the renter's forum, please e-mail us to be validated.
+                        If you need us to remove/update information please e-mail us aswell.
                     </Typography>
                 </Card>
             </Grid>
