@@ -13,7 +13,8 @@ const Map = ReactMapboxGl({
         "pk.eyJ1IjoibWF5b2ppY2giLCJhIjoiY2pla3Q3MzVvMWRoYTJybnVyMndxM2hmdCJ9.nWZlYcpKaMqz6m7xTsnJGA"
 });
 
-const defaultCoordinates = [-97.066524, 36.125678];
+/** coordinates of BonePickens Stadium */
+const DEFAULT_COORDINATES = [-97.066524, 36.125678];
 
 
 // Create an image for the Layer from svg
@@ -23,7 +24,6 @@ const images = ['parking', image];
 
 
 const BaseMap = () => {
-
     // eslint-disable-next-line
     const [map, setMap] = useState(null);
 
@@ -66,10 +66,10 @@ const BaseMap = () => {
                     height: "calc(100vh - 64px)",
                     width: "100vw"
                 }}
-                center={defaultCoordinates}
+                center={DEFAULT_COORDINATES}
             >
                 <Layer type="symbol" id="marker" layout={{ "icon-image": "marker-15" }}>
-                    <Feature coordinates={defaultCoordinates} />
+                    <Feature coordinates={DEFAULT_COORDINATES} />
                 </Layer>
 
                 <ZoomControl position='bottom-right' />
@@ -104,7 +104,9 @@ const BaseMap = () => {
 
 }
 
-
+/**
+ * Map component which is shown in the parking page
+ */
 class ParkMap extends React.Component {
     render() {
         return (

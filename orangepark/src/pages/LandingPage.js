@@ -17,8 +17,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
+/**
+ * Landing page which is shown by default on the default path
+ */
 const LandingPage = () => {
-
   const classes = useStyles();
   return (
     <Grid container alignItems="stretch" direction="column" justifyContent="space-evenly" className={classes.container}>

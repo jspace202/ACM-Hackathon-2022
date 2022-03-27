@@ -28,6 +28,9 @@ const useStyles = makeStyles({
     }
 });
 
+/**
+ * Custom reusable Tooltip which is shown on the Map when clicked on the parking icon
+ */
 export default function ToolTipCard({ data, handleClose }) {
     const classes = useStyles();
 
@@ -55,7 +58,7 @@ export default function ToolTipCard({ data, handleClose }) {
             </CardContent>
             <CardActions>
                 <Button size="small" color="primary">
-                    <a href={`https://www.google.com/maps/dir//${data.latitude},${data.longitude}`} target="_blank">
+                    <a href={`https://www.google.com/maps/dir//${data.latitude},${data.longitude}`} target="_blank" rel="noreferrer">
                         Get Directions
                     </a>
                 </Button>

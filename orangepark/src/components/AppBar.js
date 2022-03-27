@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+/** 
+ * Custom reusable app bar component for the whole app
+ */
 export default function CustomAppBar() {
   const classes = useStyles();
 

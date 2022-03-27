@@ -25,6 +25,9 @@ const useStyles = makeStyles({
     }
 });
   
+/**
+ * Parking about page which displays info about the App
+ */
 const ParkingAboutPage = () => {
     const classes = useStyles();
         return (

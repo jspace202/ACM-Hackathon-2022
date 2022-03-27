@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+/**
+ * Parking spots Form page which displays the form for the user to fill in details
+ */
 export default function ParkingProvidingPage() {
     const classes = useStyles();
     const navigate = useNavigate();
@@ -211,6 +214,5 @@ export default function ParkingProvidingPage() {
             </div>
             <Button className={classes.button} disabled={!isFormValid} color="secondary" size='large' variant='outlined' onClick={handleSubmit}>Submit</Button>
         </>
-
     );
 }

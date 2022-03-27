@@ -11,6 +11,7 @@ class App extends React.Component {
     return (
       <>
         <AppBar />
+        {/* {All the Routes of the App} */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="park" element={<ParkingsListView />} />

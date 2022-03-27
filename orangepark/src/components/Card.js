@@ -39,7 +39,6 @@ const useStyles = makeStyles({
     background: 'linear-gradient(45deg, #ffa600 30%, #ff6a00 90%)',
     color: 'white',
     border: '3px solid #c9c9c9',
-    margin: '0 1rem',
     width: '14rem',
     margin: 'auto',
     textTransform: 'uppercase',
@@ -54,6 +53,9 @@ const useStyles = makeStyles({
   }
 });
 
+/**
+ * Custom reusable Card which is shown on the landing page
+ */
 export default function CustomCard({ title, description, link }) {
   const classes = useStyles();
   return (
