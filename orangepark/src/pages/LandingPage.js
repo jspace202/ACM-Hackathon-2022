@@ -12,10 +12,9 @@ class LandingPage extends React.Component {
           </Grid>
 
           <Grid item xs={12}>
-          <CustomCard title="Need a place to park?" description="Park" link="park" />
+            <CustomCard title="Need a place to park?" description="Park" link="park"/>
           </Grid>
         </Grid>
-
       </div>
     );
   }
