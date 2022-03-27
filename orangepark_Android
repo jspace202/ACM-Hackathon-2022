@@ -1,115 +1,124 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      title: 'flutter demo',
+      home: HomeScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class HomeScreen extends StatelessWidget {
+  //const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.deepOrange,
+          title: const Center(
+            child: Text(
+              'Orange Park',
+              style: TextStyle(fontSize: 50.0),
+              ),
+          ),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
             const Text(
-              'You have pushed the button this many times:',
+              ' Have a few extra parking spaces?',
+              style: TextStyle(fontSize: 27.0),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Container(
+              child: ElevatedButton(
+                style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrange)),
+                child: const Text(
+                  'RENT',
+                  style: TextStyle(fontSize: 35.0),
+                  ),
+                onPressed: () {
+                  _navigateToRentScreen(context);
+                },
+              ),
+              margin: const EdgeInsets.all(0),
+              height: 100,
+              width: 300,
+            ),
+            const Text(
+              'Need a place to park?',
+              style: TextStyle(fontSize: 27.0),
+              ),
+            Container(
+              child: ElevatedButton(
+                child: const Text(
+                  'PARK',
+                  style: TextStyle(fontSize: 35.0),
+                ),
+                style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrange)),
+                onPressed: () {
+                  _navigateToParkScreen(context);
+                }
+            ),
+              margin: const EdgeInsets.all(0),
+              height: 100,
+              width: 300,
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+
+//The method below and subsequent class render a new screen when "RENT" is pressed
+void _navigateToRentScreen(BuildContext context) {
+  Navigator.of(context).push(MaterialPageRoute(builder: (context) => RentScreen()));
+}
+
+class RentScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('New Screen')),
+      body: Center(
+        child: Text(
+          'This is a new screen',
+          style: TextStyle(fontSize: 25.0),
+      ),
+    ),
+    );
+  }
+}
+
+
+//The method below and subsequent class render a new screen when "PARK" is pressed
+void _navigateToParkScreen(BuildContext context) {
+  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ParkScreen()));
+}
+
+class ParkScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Screen')),
+      body: Center(
+        child: Text(
+          'This is a new screen',
+          style: TextStyle(fontSize: 25.0),
+      ),
+    ),
     );
   }
 }
