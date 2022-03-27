@@ -47,12 +47,12 @@ export default function ParkingProvidingPage() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            fetch("http://api.positionstack.com/v1/forward?access_key=4f165417fa1a9d999de3f32978c4b93f&query=" + details.address + "&limit=1")
+            fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+details.address+".json?limit=1&proximity=ip&types=place%2Cpostcode%2Caddress%2Cpoi%2Ccountry%2Cregion%2Cdistrict%2Clocality%2Cneighborhood&access_token=pk.eyJ1IjoibWF5b2ppY2giLCJhIjoiY2pla3Q3MzVvMWRoYTJybnVyMndxM2hmdCJ9.nWZlYcpKaMqz6m7xTsnJGA")
                 .then(res => res.json())
                 .then(async (result) => {
                     console.log(result)
-                    if (result && result.data && result.data.length) {
-                        const { latitude, longitude } = result.data[0];
+                    if (result && result.features && result.features.length) {
+                        const [longitude, latitude ] = result.features[0].center;
                         await addDoc(collection(db, 'spots'), {
                             name: details.name,
                             email: details.email,
