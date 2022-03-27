@@ -46,7 +46,8 @@ class HomeScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 35.0),
                   ),
                 onPressed: () {
-                  _navigateToRentScreen(context);
+                  //_navigateToRentScreen(context);
+                  _launchURL;
                 },
               ),
               margin: const EdgeInsets.all(0),
@@ -78,7 +79,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
 
 //The method below and subsequent class render a new screen when "RENT" is pressed
 void _navigateToRentScreen(BuildContext context) {
