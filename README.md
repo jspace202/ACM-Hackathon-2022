@@ -30,3 +30,6 @@ App functionalities:
 -Directions to the available parking spot.
 -Contact the User Providing the Parking Spot.
 -Handle creating and the availability of Parking Spots.
+
+
+Deployed on https://react-frontend-f267f.web.app/
