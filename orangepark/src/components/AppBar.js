@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    fontWeight: 'bold'
   },
   toolbar: {
     backgroundColor: "#FE5C00",
@@ -40,8 +41,8 @@ export default function CustomAppBar() {
               <HomeIcon />
             </IconButton>
           </Link>
-          <Typography variant="h6" className={classes.title}>
-            Orange Park
+          <Typography variant="h5" className={classes.title}>
+            OrangePark
           </Typography>
           <Link to='/about' className={classes.link}>
             <Button color="inherit">About us</Button>

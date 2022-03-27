@@ -10,6 +10,10 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     margin: '2rem 1rem',
+    background: 'transparent',
+    textShadow: '2px 2px black',
+    boxShadow: 'none',
+    color: 'white'
   },
   bullet: {
     display: 'inline-block',
@@ -17,9 +21,10 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 50,
+    fontSize: '3rem',
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: 'whitesmoke',
   },
   pos: {
     marginBottom: 12,
@@ -35,20 +40,21 @@ const useStyles = makeStyles({
     color: 'white',
     border: '3px solid #c9c9c9',
     margin: '0 1rem',
-    width: '30%',
-    marginLeft: '35%',
+    width: '14rem',
+    margin: 'auto',
     textTransform: 'uppercase',
-    '&:hover':{
+    '&:hover': {
       backgroundColor: '#da5f00',
       border: '3px solid #c9c9c9',
     }
   },
-  link:{
-    textDecoration: 'none'
+  link: {
+    textDecoration: 'none',
+    display: 'flex'
   }
 });
 
-export default function CustomCard({title, description, link}) {
+export default function CustomCard({ title, description, link }) {
   const classes = useStyles();
   return (
     <Card className={classes.root} raised>
@@ -60,6 +66,6 @@ export default function CustomCard({title, description, link}) {
           <Button fullWidth className={classes.btn} color="primary" size='large' variant='outlined'>{description}</Button>
         </Link>
       </CardContent>
-      </Card>
+    </Card>
   );
 }
