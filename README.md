@@ -1,9 +1,16 @@
 # OrangePark ACM-Hackathon-2022
 
 Third Party API's:
-Venmo - We cannot use Venmo
-PayPal - We can use PayPal freely in any web or mobile app
-MapBox - We can use freely in any web or mobile app if we create an account
+MapBox - We used mapbox for rendering map and for GeoCoding
+https://docs.mapbox.com/
+
+Google's Firebase for Hosting the App and the FireStore Database.
+https://firebase.google.com/
+
+Material UI Library for theming components.
+https://mui.com/
+
+
 
 App functionalities:
 //People searching for parking create an account that holds the following:
@@ -11,7 +18,6 @@ App functionalities:
 -address
 -phone number
 -email address
--Banking information
 
 //People selling their own parking create an account that holds everything above and the following:
 -parking spaces available on their property
@@ -19,5 +25,8 @@ App functionalities:
 -The price of parking per vehicle
 
 //The App itself will have the following functionalities:
--An interactive map, using MapBox, that allows users to search Stillwater for all available parking
--A search bar that allows users to input a location and find available parking closest to that location.
+-An interactive map, using Map, that allows users to search Stillwater for all available parking
+-find available parking closest to that location.
+-Directions to the available parking spot.
+-Contact the User Providing the Parking Spot.
+-Handle creating and the availability of Parking Spots.
