@@ -46,8 +46,7 @@ class HomeScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 35.0),
                   ),
                 onPressed: () {
-                  //_navigateToRentScreen(context);
-                  _launchURL;
+                  _navigateToRentScreen(context);
                 },
               ),
               margin: const EdgeInsets.all(0),
