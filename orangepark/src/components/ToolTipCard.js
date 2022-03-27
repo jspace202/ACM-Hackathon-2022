@@ -55,7 +55,7 @@ export default function ToolTipCard({ data, handleClose }) {
             </CardContent>
             <CardActions>
                 <Button size="small" color="primary">
-                    <a href={`https://www.google.com/maps/dir//${data.latitude},${data.longitude}`}>
+                    <a href={`https://www.google.com/maps/dir//${data.latitude},${data.longitude}`} target="_blank">
                         Get Directions
                     </a>
                 </Button>
