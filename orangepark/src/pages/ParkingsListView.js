@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore"
 import { db } from '../firebase'
@@ -37,7 +37,6 @@ const BaseMap = () => {
     useEffect(() => {
         const q = query(collection(db, 'spots'), orderBy('createdAt', 'desc'))
         onSnapshot(q, (querySnapshot) => {
-            console.log(querySnapshot);
             setParkings(querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 data: doc.data()
@@ -45,11 +44,11 @@ const BaseMap = () => {
         })
     }, []);
 
+    const filteredParkings = useMemo(() => {
+        return parkingsAvailable.filter(item => item.data.isValid)
+    },[parkingsAvailable]);
+
     const [toolTip, setToolTip] = useState(null);
-
-
-    console.log(parkingsAvailable);
-    
 
     return (
         <>
@@ -75,7 +74,7 @@ const BaseMap = () => {
                     images={images}
                     layout={{ 'icon-image': 'parking', "icon-size":1, 'icon-allow-overlap': true}}>
                     {
-                        parkingsAvailable.map((parking, index) => (
+                        filteredParkings.map((parking, index) => (
                             <Feature
                                 key={index}
                                 coordinates={[parking.data.longitude, parking.data.latitude]}
@@ -95,6 +94,8 @@ const BaseMap = () => {
                             <h2>{toolTip.data.address}</h2>
                             <h2>{toolTip.data.phoneNumber}</h2>
                             <h2>{toolTip.data.email}</h2>
+                            <h2>{toolTip.data.price} $</h2>
+                            <h2>{toolTip.data.numberOfSpotsAvailable} slots available</h2>
                         </Popup>
                     )
                 }
@@ -109,7 +110,6 @@ class ParkMap extends React.Component {
         return (
             <>
                 <BaseMap ref={el => (this.componentRef = el)} />
-                {/* <ListView /> */}
             </>
         )
     }

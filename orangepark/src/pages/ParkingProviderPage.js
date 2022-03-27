@@ -33,6 +33,8 @@ export default function ParkingProvidingPage() {
         email: '',
         phoneNumber: '',
         address: '',
+        price: '',
+        numberOfSpotsAvailable: '',
     })
     const [snackMessage, setSnackMessage] = React.useState({ type: '', value: '' });
 
@@ -47,12 +49,11 @@ export default function ParkingProvidingPage() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/"+details.address+".json?limit=1&proximity=ip&types=place%2Cpostcode%2Caddress%2Cpoi%2Ccountry%2Cregion%2Cdistrict%2Clocality%2Cneighborhood&access_token=pk.eyJ1IjoibWF5b2ppY2giLCJhIjoiY2pla3Q3MzVvMWRoYTJybnVyMndxM2hmdCJ9.nWZlYcpKaMqz6m7xTsnJGA")
+            fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/" + details.address + ".json?limit=1&proximity=ip&types=place%2Cpostcode%2Caddress%2Cpoi%2Ccountry%2Cregion%2Cdistrict%2Clocality%2Cneighborhood&access_token=pk.eyJ1IjoibWF5b2ppY2giLCJhIjoiY2pla3Q3MzVvMWRoYTJybnVyMndxM2hmdCJ9.nWZlYcpKaMqz6m7xTsnJGA")
                 .then(res => res.json())
                 .then(async (result) => {
-                    console.log(result)
                     if (result && result.features && result.features.length) {
-                        const [longitude, latitude ] = result.features[0].center;
+                        const [longitude, latitude] = result.features[0].center;
                         await addDoc(collection(db, 'spots'), {
                             name: details.name,
                             email: details.email,
@@ -60,7 +61,10 @@ export default function ParkingProvidingPage() {
                             address: details.address,
                             latitude,
                             longitude,
-                            createdAt: Timestamp.now()
+                            createdAt: Timestamp.now(),
+                            numberOfSpotsAvailable: details.numberOfSpotsAvailable,
+                            price: details.price,
+                            isValid: false
                         }).then(() => {
                             setSnackMessage({ type: '', value: 'Form Submitted successfully' });
                             setTimeout(() => { navigate('/'); }, 1000);
@@ -83,7 +87,7 @@ export default function ParkingProvidingPage() {
 
     const isFormValid = useMemo(() => {
         if (details.name && details.email && isValidEmail(details.email) &&
-            details.phoneNumber && isValidPhone(details.phoneNumber) && details.address && details.address.length > 3) {
+            details.phoneNumber && isValidPhone(details.phoneNumber) && details.address && details.address.length > 3 && details.numberOfSpotsAvailable && details.price) {
             return true;
         }
         return false;
@@ -127,6 +131,7 @@ export default function ParkingProvidingPage() {
                         label="Email"
                         value={details.email}
                         name="email"
+                        type="email"
                         onChange={handleChange}
                         id="outlined-margin-none"
                         defaultValue=""
@@ -138,6 +143,7 @@ export default function ParkingProvidingPage() {
                     <TextField
                         label="Phone Number"
                         name="phoneNumber"
+                        type="number"
                         value={details.phoneNumber}
                         onChange={handleChange}
                         id="outlined-margin-none"
@@ -158,6 +164,42 @@ export default function ParkingProvidingPage() {
                         helperText=""
                         fullWidth
                         defaultValue=""
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        variant="outlined"
+                        required="true"
+                    />
+                    <TextField
+                        id="outlined-full-width"
+                        label="Number of Slots Available"
+                        onChange={handleChange}
+                        name="numberOfSpotsAvailable"
+                        type="number"
+                        value={details.numberOfSpotsAvailable}
+                        style={{ margin: 8 }}
+                        placeholder="Enter Number"
+                        helperText="Please enter max number of cars that can fit"
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        variant="outlined"
+                        required="true"
+                    />
+                    <TextField
+                        id="outlined-full-width"
+                        label="Price"
+                        onChange={handleChange}
+                        name="price"
+                        type="number"
+                        value={details.price}
+                        style={{ margin: 8 }}
+                        placeholder="Enter Price $"
+                        helperText="Please the Price you are expecting in Dollars"
+                        fullWidth
                         margin="normal"
                         InputLabelProps={{
                             shrink: true,
